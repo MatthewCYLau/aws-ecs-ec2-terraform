@@ -1,6 +1,6 @@
 resource "aws_launch_configuration" "ecs_launch_config" {
   image_id                    = "ami-09a3cad575b7eabaa"
-  iam_instance_profile        = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/ecsInstanceRole"
+  iam_instance_profile        = aws_iam_instance_profile.ecs.arn
   security_groups             = [aws_security_group.ecs_sg.id]
   user_data                   = "#!/bin/bash\necho ECS_CLUSTER=my-cluster >> /etc/ecs/ecs.config"
   instance_type               = "t2.micro"
@@ -17,4 +17,33 @@ resource "aws_autoscaling_group" "ecs_ec2_asg" {
   max_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "EC2"
+}
+
+resource "aws_iam_instance_profile" "ecs" {
+  name = "ecs-ec2-cluster"
+  role = aws_iam_role.ecs.name
+}
+
+resource "aws_iam_role" "ecs" {
+  name               = "ecs-ec2-role"
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_attach" {
+  role       = aws_iam_role.ecs.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
