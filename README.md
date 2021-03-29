@@ -2,6 +2,8 @@
 
 A reference project to deploy an AWS ECS Cluster of EC2 Instances with Terraform
 
+![AWS Architecture](img/aws-ecs-ec2.JPG)
+
 ## Pre-requisite
 
 - Make sure you have installed [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli), [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html#cliv2-mac-prereq), and configured a `default` AWS CLI profile (see doc [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-profiles))
