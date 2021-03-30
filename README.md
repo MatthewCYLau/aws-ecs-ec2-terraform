@@ -19,8 +19,6 @@ aws configure # configure your AWS CLI profile
 
 ## Configuration
 
-- Create a Github project, and generate a personal access token (see doc [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token))
-
 - Create an [S3 bucket](https://www.terraform.io/docs/language/settings/backends/s3.html) to store Terraform state. Populate bucket name in `01-main.tf`
 
 * Populate `terraform.tfvars`:
