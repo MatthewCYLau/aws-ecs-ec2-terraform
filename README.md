@@ -2,6 +2,8 @@
 
 A reference project to deploy an AWS ECS Cluster of EC2 Instances with Terraform
 
+An [Apache HTTP server](https://hub.docker.com/_/httpd) running inside a container :whale:
+
 ![AWS Architecture](img/aws-ecs-ec2.JPG)
 
 ## Pre-requisite

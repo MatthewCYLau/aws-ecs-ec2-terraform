@@ -19,4 +19,17 @@ resource "aws_ecs_service" "worker" {
   task_definition = aws_ecs_task_definition.task_definition.arn
   launch_type     = "EC2"
   desired_count   = 1
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.staging.arn
+    container_name   = "worker"
+    container_port   = 80
+  }
+
+  depends_on = [aws_lb_listener.https_forward]
+
+  tags = {
+    Environment = var.environment
+    Application = var.app_name
+  }
 }
