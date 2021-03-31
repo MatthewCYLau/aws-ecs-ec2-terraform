@@ -17,6 +17,6 @@
         "cpu": 10,
         "memory": 300,
         "image": "httpd:2.4",
-        "name": "worker"
+        "name": "app"
     }
 ]

@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "ecs_cluster" {
-  name = "my-cluster"
+  name = "app-cluster"
 }
 
 data "template_file" "task_definition_template" {
@@ -8,25 +8,25 @@ data "template_file" "task_definition_template" {
 
 
 resource "aws_ecs_task_definition" "task_definition" {
-  family                   = "worker"
+  family                   = "app"
   container_definitions    = data.template_file.task_definition_template.rendered
   requires_compatibilities = ["EC2"]
 }
 
-resource "aws_ecs_service" "worker" {
-  name            = "worker"
+resource "aws_ecs_service" "app" {
+  name            = "app"
   cluster         = aws_ecs_cluster.ecs_cluster.id
   task_definition = aws_ecs_task_definition.task_definition.arn
   launch_type     = "EC2"
   desired_count   = 1
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.staging.arn
-    container_name   = "worker"
+    target_group_arn = aws_lb_target_group.app.arn
+    container_name   = "app"
     container_port   = 80
   }
 
-  depends_on = [aws_lb_listener.https_forward]
+  depends_on = [aws_lb_listener.http_forward]
 
   tags = {
     Environment = var.environment
