@@ -9,7 +9,7 @@ resource "aws_launch_configuration" "ecs_launch_config" {
 
 resource "aws_autoscaling_group" "ecs_ec2_asg" {
   name                 = "ECS EC2 ASG"
-  vpc_zone_identifier  = aws_subnet.public.*.id
+  vpc_zone_identifier  = aws_subnet.private.*.id
   launch_configuration = aws_launch_configuration.ecs_launch_config.name
 
   desired_capacity          = 1
