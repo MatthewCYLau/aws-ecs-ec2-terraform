@@ -1,5 +1,15 @@
+data "aws_ami" "ecs_ami" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-ecs-hvm-*-x86_64-ebs"]
+  }
+}
+
 resource "aws_launch_configuration" "ecs_launch_config" {
-  image_id                    = "ami-09a3cad575b7eabaa"
+  image_id                    = local.instance_ami
   iam_instance_profile        = aws_iam_instance_profile.ecs.arn
   security_groups             = [aws_security_group.ecs_task.id]
   user_data                   = "#!/bin/bash\necho ECS_CLUSTER=app-cluster >> /etc/ecs/ecs.config"
