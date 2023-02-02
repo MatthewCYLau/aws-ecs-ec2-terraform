@@ -28,8 +28,5 @@ resource "aws_ecs_service" "app" {
 
   depends_on = [aws_lb_listener.http_forward]
 
-  tags = {
-    Environment = var.environment
-    Application = var.app_name
-  }
+  tags = local.tags
 }
