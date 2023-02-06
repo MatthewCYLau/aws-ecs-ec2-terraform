@@ -4,4 +4,5 @@ locals {
     Environment = var.environment
     Application = var.app_name
   }
+  vpc_cidr = "10.0.0.0/16"
 }

@@ -3,7 +3,7 @@ data "aws_availability_zones" "available_zones" {
 }
 
 resource "aws_vpc" "default" {
-  cidr_block = "10.32.0.0/16"
+  cidr_block = local.vpc_cidr
   tags = {
     Name = "ECS EC2 VPC"
   }
