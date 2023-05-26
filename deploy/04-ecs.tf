@@ -2,17 +2,11 @@ resource "aws_ecs_cluster" "this" {
   name = "app-cluster"
 }
 
-data "template_file" "task_definition_template" {
-  template = file("task-definitions/service.json.tpl")
-  vars = {
-    aws_cloudwatch_log_group = aws_cloudwatch_log_group.ecs.name
-  }
-}
-
-
 resource "aws_ecs_task_definition" "task_definition" {
-  family                   = "nginx"
-  container_definitions    = data.template_file.task_definition_template.rendered
+  family = "nginx"
+  container_definitions = templatefile("task-definitions/service.json.tpl", {
+    aws_cloudwatch_log_group = aws_cloudwatch_log_group.ecs.name
+  })
   requires_compatibilities = ["EC2"]
 }
 
