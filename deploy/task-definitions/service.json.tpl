@@ -14,7 +14,7 @@
       "logConfiguration":{
          "logDriver":"awslogs",
          "options":{
-            "awslogs-region":"us-east-1",
+            "awslogs-region":"${var.region}",
             "awslogs-stream-prefix": "ecs",
             "awslogs-group":"${aws_cloudwatch_log_group}"
          }

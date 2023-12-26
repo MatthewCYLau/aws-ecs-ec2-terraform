@@ -24,9 +24,9 @@ aws configure # configure your AWS CLI profile
 * Populate `terraform.tfvars`:
 
 ```bash
-default_region            = "us-east-1"
-app_name                  = "aws-ecs-ec2-app"
-environment               = "staging"
+region      = "us-east-1"
+app_name    = "ecs-ec2-app"
+environment = "production"
 ```
 
 ## Deploy
